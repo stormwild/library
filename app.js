@@ -1,17 +1,34 @@
-var express = require('express');
-var chalk = require('chalk');
-var debug = require('debug')('app');
-var morgan = require('morgan');
-var path = require('path');
+const express = require('express');
+const chalk = require('chalk');
+const debug = require('debug')('app');
+const morgan = require('morgan');
+const path = require('path');
 
-var app = express();
+const port = process.env.PORT || 3000;
+const app = express();
+
+const bookRouter = express.Router();
 
 app.use(morgan('tiny'));
+app.use(express.static(path.join(__dirname, '/public/')));
 
-app.get('/', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/index.html'));
+app.set('views', './src/views');
+app.set('view engine', 'ejs');
+
+bookRouter.route('/books').get((req, res) => {
+  res.send('Hello books');
 });
 
-app.listen(3000, function() {
-  debug(`Listening on port ${chalk.green('3000')}`);
+app.use('/', bookRouter);
+
+app.get('/', (req, res) => {
+  res.render('index', {
+    page: 'Home',
+    title: 'Library',
+    list: ['a', 'b']
+  });
+});
+
+app.listen(port, () => {
+  debug(`Listening on port ${chalk.green(port)}`);
 });

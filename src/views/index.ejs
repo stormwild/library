@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= `${page} - ${title}` %></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body class="app">
+    <h1><%= title %></h1>
+    <p>This is a library application</p>
+    <h3>Subtitle</h3>
+    <ul>
+      <% for(let i = 0; i < list.length; i++) { %>
+        <li><%= list[i] %></li>
+      <% } %>
+    </ul>
+  </body>
+</html>
